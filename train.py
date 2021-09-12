@@ -7,20 +7,28 @@ import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
 import pandas as pd
-from azureml.core.run import Run
+from azureml.core.run import Dataset, Run
 from azureml.data.dataset_factory import TabularDatasetFactory
 
 # TODO: Create TabularDataset using TabularDatasetFactory
 # Data is located at:
-# "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv"
+pathData = "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv"
 
-ds = ### YOUR CODE HERE ###
+ds = Dataset.Tabular.from_delimited_files(path=pathData)
+
+#SOURCE/HELP: https://docs.microsoft.com/en-us/python/api/azureml-core/azureml.data.dataset_factory.tabulardatasetfactory?view=azure-ml-py
 
 x, y = clean_data(ds)
 
 # TODO: Split data into train and test sets.
 
-### YOUR CODE HERE ###a
+
+#output x_train, x_test , y_train, y_test needed for the main
+
+x_train, x_test , y_train, y_test = train_test_split(x, y)
+
+#more parameter to define the way the split is done could be given here. At this stage, not sure if needed.
+#SOURCE/HELP: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
 
 run = Run.get_context()
 
