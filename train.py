@@ -49,7 +49,7 @@ def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--C', type=float, default=1.0, help="Inverse of regularization strength. Smaller values cause stronger regularization")
-    parser.add_argument('--max_iter', type=int, default=100, help="Maximum number of iterations to converge")
+    parser.add_argument('--max_iter', type=int, default=10, help="Maximum number of iterations to converge")
 
     args = parser.parse_args()
 
@@ -60,6 +60,9 @@ def main():
 
     accuracy = model.score(x_test, y_test)
     run.log("Accuracy", np.float(accuracy))
+    
+    os.makedirs('outputs',exist_ok=True)
+    joblib.dump(model,'/outputs/model.joblib')
 
 # TODO: Create TabularDataset using TabularDatasetFactory
 # Data is located at:
@@ -76,10 +79,11 @@ x, y = clean_data(ds)
 
 #output x_train, x_test , y_train, y_test needed for the main
 
-x_train, x_test , y_train, y_test = train_test_split(x, y)
+x_train, x_test , y_train, y_test = train_test_split(x, y,test_size=0.33,random_state=64)
 
 #more parameter to define the way the split is done could be given here. At this stage, not sure if needed.
-#SOURCE/HELP: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
+#SOURCE/HELP: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html 
+#https://machinelearningmastery.com/train-test-split-for-evaluating-machine-learning-algorithms/
 
 run = Run.get_context()
 
