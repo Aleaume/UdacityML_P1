@@ -1,0 +1,53 @@
+2021/09/15 19:45:52 Starting App Insight Logger for task:  runTaskLet
+2021/09/15 19:45:52 Version: 3.0.01706.0003 Branch: 2021-09-03 Commit: cd0f702
+2021/09/15 19:45:52 Attempt 1 of http call to http://10.0.0.5:16384/sendlogstoartifacts/info
+2021/09/15 19:45:52 Send process info logs to master server succeeded
+2021/09/15 19:45:52 Attempt 1 of http call to http://10.0.0.5:16384/sendlogstoartifacts/status
+2021/09/15 19:45:52 Send process info logs to master server succeeded
+[2021-09-15T19:45:52.527757] Entering context manager injector.
+[2021-09-15T19:45:52.920580] context_manager_injector.py Command line Options: Namespace(inject=['ProjectPythonPath:context_managers.ProjectPythonPath', 'RunHistory:context_managers.RunHistory', 'TrackUserError:context_managers.TrackUserError'], invocation=['train.py', '--C', '0.15768527992484022', '--max_iter', '1000'])
+Script type = None
+[2021-09-15T19:45:52.924552] Entering Run History Context Manager.
+[2021-09-15T19:45:53.724595] Current directory: /mnt/batch/tasks/shared/LS_root/jobs/quick-starts-ws-158411/azureml/hd_712b7a91-75c5-4c77-9057-c505f22ad072_4/wd/azureml/HD_712b7a91-75c5-4c77-9057-c505f22ad072_4
+[2021-09-15T19:45:53.724638] Preparing to call script [train.py] with arguments:['--C', '0.15768527992484022', '--max_iter', '1000']
+[2021-09-15T19:45:53.724664] After variable expansion, calling script [train.py] with arguments:['--C', '0.15768527992484022', '--max_iter', '1000']
+
+2021/09/15 19:45:57 Not exporting to RunHistory as the exporter is either stopped or there is no data.
+Stopped: false
+OriginalData: 1
+FilteredData: 0.
+/opt/miniconda/lib/python3.6/site-packages/azureml/dataprep/api/dataflow.py:722: UserWarning: Your pandas and pyarrow versions are incompatible. Please install pyarrow>=0.12.0 for improved performance of to_pandas_dataframe. You can ensure the correct version is installed by running: pip install pyarrow>=0.12.0 --upgrade
+  warnings.warn('Your pandas and pyarrow versions are incompatible. '
+/opt/miniconda/lib/python3.6/site-packages/sklearn/linear_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+
+[2021-09-15T19:46:03.837949] The experiment failed. Finalizing run...
+Cleaning up all outstanding Run operations, waiting 900.0 seconds
+2 items cleaning up...
+Cleanup took 5.4948976039886475 seconds
+Traceback (most recent call last):
+  File "train.py", line 93, in <module>
+    main()
+  File "train.py", line 65, in main
+    joblib.dump(model,'/outputs/model.joblib')
+  File "/opt/miniconda/lib/python3.6/site-packages/joblib/numpy_pickle.py", line 501, in dump
+    with open(filename, 'wb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/outputs/model.joblib'
+
+[2021-09-15T19:46:09.496720] Finished context manager injector with Exception.
+2021/09/15 19:46:10 Skipping parsing control script error. Reason: Error json file doesn't exist. This most likely means that no errors were written to the file. File path: /mnt/batch/tasks/workitems/bcf21e86-f738-4691-b53b-a85b45d05377/job-1/hd_712b7a91-75c5-4c7_6c9ee976-c72d-459b-b67a-9d6bab877125/wd/runTaskLetTask_error.json
+2021/09/15 19:46:10 Wrapper cmd failed with err: exit status 1
+2021/09/15 19:46:10 Attempt 1 of http call to http://10.0.0.5:16384/sendlogstoartifacts/status
+2021/09/15 19:46:10 Send process info logs to master server succeeded
+2021/09/15 19:46:10 mpirun version string: {
+Intel(R) MPI Library for Linux* OS, Version 2018 Update 3 Build 20180411 (id: 18329)
+Copyright 2003-2018 Intel Corporation.
+}
+2021/09/15 19:46:10 MPI publisher: intel ; version: 2018
+2021/09/15 19:46:10 Not exporting to RunHistory as the exporter is either stopped or there is no data.
+Stopped: false
+OriginalData: 2
+FilteredData: 0.
+2021/09/15 19:46:10 Process Exiting with Code:  1
+2021/09/15 19:46:10 All App Insights Logs was sent successfully or the close timeout of 10 was reached
