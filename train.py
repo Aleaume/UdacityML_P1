@@ -7,30 +7,12 @@ import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
 import pandas as pd
-from azureml.core.run import Dataset, Run
+from azureml.core.run import Run
+from azureml.core import Dataset
 from azureml.data.dataset_factory import TabularDatasetFactory
 
-# TODO: Create TabularDataset using TabularDatasetFactory
-# Data is located at:
-pathData = "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv"
+#Requirements: azureml-sdk (pip install azureml-sdk)
 
-ds = Dataset.Tabular.from_delimited_files(path=pathData)
-
-#SOURCE/HELP: https://docs.microsoft.com/en-us/python/api/azureml-core/azureml.data.dataset_factory.tabulardatasetfactory?view=azure-ml-py
-
-x, y = clean_data(ds)
-
-# TODO: Split data into train and test sets.
-
-
-#output x_train, x_test , y_train, y_test needed for the main
-
-x_train, x_test , y_train, y_test = train_test_split(x, y)
-
-#more parameter to define the way the split is done could be given here. At this stage, not sure if needed.
-#SOURCE/HELP: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
-
-run = Run.get_context()
 
 def clean_data(data):
     # Dict for cleaning data
@@ -57,6 +39,9 @@ def clean_data(data):
     x_df["poutcome"] = x_df.poutcome.apply(lambda s: 1 if s == "success" else 0)
 
     y_df = x_df.pop("y").apply(lambda s: 1 if s == "yes" else 0)
+
+    return x_df, y_df
+    #return values missing initially, solved thank to issues logged in github repo.
     
 
 def main():
@@ -75,6 +60,30 @@ def main():
 
     accuracy = model.score(x_test, y_test)
     run.log("Accuracy", np.float(accuracy))
+
+# TODO: Create TabularDataset using TabularDatasetFactory
+# Data is located at:
+pathData = "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv"
+
+ds = Dataset.Tabular.from_delimited_files(path=pathData)
+
+#SOURCE/HELP: https://docs.microsoft.com/en-us/python/api/azureml-core/azureml.data.dataset_factory.tabulardatasetfactory?view=azure-ml-py
+
+x, y = clean_data(ds)
+
+# TODO: Split data into train and test sets.
+
+
+#output x_train, x_test , y_train, y_test needed for the main
+
+x_train, x_test , y_train, y_test = train_test_split(x, y)
+
+#more parameter to define the way the split is done could be given here. At this stage, not sure if needed.
+#SOURCE/HELP: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
+
+run = Run.get_context()
+
+
 
 if __name__ == '__main__':
     main()
