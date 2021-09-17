@@ -56,7 +56,10 @@ def main():
     run.log("Regularization Strength:", np.float(args.C))
     run.log("Max iterations:", np.int(args.max_iter))
 
+    #classification task
     model = LogisticRegression(C=args.C, max_iter=args.max_iter).fit(x_train, y_train)
+
+    
 
     accuracy = model.score(x_test, y_test)
     run.log("Accuracy", np.float(accuracy))
